@@ -7,6 +7,6 @@
 ---
 
 ## Demo
-[Click Here to Play it](#)
+[Click Here to Play it](https://react-state-management-lab.onrender.com/)
 
 
