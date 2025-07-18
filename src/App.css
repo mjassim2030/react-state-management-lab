@@ -1,3 +1,21 @@
+@font-face {
+  font-family: 'shlop';
+  src: url('./assets/fonts/shlop.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'shlop_rg';
+  src: url('./assets/fonts/shlop_rg.otf') format('opentype');
+}
+
+.gameTitle {
+  font-family: 'shlop', sans-serif;
+  font-size: 8rem;
+  color: rgb(92, 186, 92);
+  text-align: center;
+}
+
+
 #root {
   margin: 16px;
 }
@@ -7,13 +25,33 @@ ul {
   flex-wrap: wrap;
 }
 
-h1, h2, h3, h4{
-      color: aliceblue;
+h1,
+h2,
+h3,
+h4 {
+  color: aliceblue;
+  font-family: 'shlop_rg', sans-serif;
+  text-align: center;
 }
 
-p{
-        color: aliceblue;
+.fighterName{
+  font-size: 2rem;
+  color: black;
+  font-family: 'shlop_rg', sans-serif;
 }
+
+.section{
+background-color: #2e8b57;
+width: 100%;
+font-size: 2rem;
+padding: 10px;
+border-radius: 2rem;
+}
+
+p {
+  color: aliceblue;
+}
+
 li {
   list-style: none;
   margin: 8px;
@@ -47,12 +85,15 @@ li {
 .card img {
   width: 100%;
   height: 180px;
+  object-position: top;
   object-fit: cover;
 }
 
 .card .cardContent {
   padding: 1rem;
   flex: 1;
+  text-align: center;
+
 }
 
 .abilities {
@@ -68,19 +109,20 @@ li {
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
-  font-size: 14px;
+  font-size: 1.5rem;
 }
 
 .card h3 {
   margin: 0 0 0.5rem;
-  font-size: 1.2rem;
+  font-size: 2.2rem;
   color: #333;
 }
 
 .card p {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #666;
   line-height: 1.4;
+  
 }
 
 button {
@@ -95,11 +137,11 @@ button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.add{
+.add {
   background-color: #2e8b57;
 }
 
-.remove{
+.remove {
   background-color: #db3838;
 }
 
@@ -119,8 +161,16 @@ button:disabled {
   margin-top: 12px;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;   
+}
+
+
 .statsCard {
-  background-color: #ffffff;
+  background-color: #0c2313;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 12px;
@@ -133,9 +183,9 @@ button:disabled {
   display: flex;
   justify-content: space-between;
   margin: 10px 0;
-  font-size: 18px;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: #333;
+  color: rgb(120, 216, 141);
 }
 
 .popupOverlay {
@@ -159,8 +209,8 @@ button:disabled {
   text-align: center;
 }
 
-.popup p{
-    color: black;
+.popup p {
+  color: black;
 }
 
 .popup button {

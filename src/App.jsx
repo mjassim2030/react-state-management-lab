@@ -1,90 +1,87 @@
 import { useState } from 'react'
+import { useEffect } from 'react';
+import './assets/fonts/shlop.otf';
+import './assets/fonts/shlop_rg.otf';
+
 import './App.css'
 
 function App() {
+
+
   const initailZombieFighters = [
     {
       id: 1,
       name: 'Survivor',
       price: 12,
       strength: 6,
-      agility: 4,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/0c2d6b.png',
+      agility: 4
     },
     {
       id: 2,
       name: 'Scavenger',
       price: 10,
       strength: 5,
-      agility: 5,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/033a16.png',
+      agility: 5
     },
     {
       id: 3,
       name: 'Shadow',
       price: 18,
       strength: 7,
-      agility: 8,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/262c36.png',
+      agility: 8
     },
     {
       id: 4,
       name: 'Tracker',
       price: 14,
       strength: 7,
-      agility: 6,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/3c1e70.png',
+      agility: 6
     },
     {
       id: 5,
       name: 'Sharpshooter',
       price: 20,
       strength: 6,
-      agility: 8,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/4b2900.png',
+      agility: 8
     },
     {
       id: 6,
       name: 'Medic',
       price: 15,
       strength: 5,
-      agility: 7,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/5a1e02.png',
+      agility: 7
     },
     {
       id: 7,
       name: 'Engineer',
       price: 16,
       strength: 6,
-      agility: 5,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/5e103e.png',
+      agility: 5
     },
     {
       id: 8,
       name: 'Brawler',
       price: 11,
       strength: 8,
-      agility: 3,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/67060c.png',
+      agility: 3
     },
     {
       id: 9,
       name: 'Infiltrator',
       price: 17,
       strength: 5,
-      agility: 9,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/ac3220.png',
+      agility: 9
     },
     {
       id: 10,
       name: 'Leader',
       price: 22,
       strength: 7,
-      agility: 6,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/e41f26.png',
+      agility: 6
     },
   ]
 
+  const fightersAssetsPath = `/ZombieFighters`
   let budget = 100;
 
   const [team, setTeam] = useState([])
@@ -94,6 +91,27 @@ function App() {
 
   let totalStrength = team.reduce((sum, fighter) => sum + fighter.strength, 0);
   let totalAgility = team.reduce((sum, fighter) => sum + fighter.agility, 0)
+
+
+  useEffect(() => {
+    const backgroundAudio = new Audio('/sounds/horror.mp3');
+    backgroundAudio.loop = true;
+    backgroundAudio.volume = 0.4;
+
+    const playAudio = () => {
+      backgroundAudio.play().catch((err) => {
+      });
+    };
+
+    document.addEventListener('click', playAudio, { loop: true });
+
+    return () => {
+      backgroundAudio.play();
+      backgroundAudio.currentTime = 0;
+      document.removeEventListener('click', playAudio);
+    };
+  }, []);
+
 
   const handleAddFighter = (zombieFighter, index) => {
 
@@ -120,45 +138,46 @@ function App() {
 
     setTeam(updatedTeam)
     setZombieFighters(updatedZombieFighters)
-    setMoney(money > budget ? budget : money + zombieFighter.price)
+    setMoney(updatedTeam.length == 0 ? budget : money > budget ? budget : money + zombieFighter.price)
 
   }
 
   return (
     <>
-      <h1>Zombie Fighters</h1>
-
-      <div className="statsCard">
-        <div className="statLine">
-          <span>Money:</span>
-          <span>{money}</span>
-        </div>
-        <div className="statLine">
-          <span>Team Strength:</span>
-          <span>{totalStrength}</span>
-        </div>
-        <div className="statLine">
-          <span>Team Agility:</span>
-          <span>{totalAgility}</span>
+      <h1 className='gameTitle'>Zombie Fighters</h1>
+      <div className='container'>
+        <div className="statsCard">
+          <div className="statLine">
+            <span>Money:</span>
+            <span>{money}</span>
+          </div>
+          <div className="statLine">
+            <span>Team Strength:</span>
+            <span>{totalStrength}</span>
+          </div>
+          <div className="statLine">
+            <span>Team Agility:</span>
+            <span>{totalAgility}</span>
+          </div>
         </div>
       </div>
 
-      <h3>Team</h3>
+      <h1 className='section'>Team</h1>
       {team.length > 0 ?
         <div className='gridContainer'>
-          {team.map((zombieFighter) => (
+          {team.map((zombieFighter, index) => (
 
             <div className="card" key={zombieFighter.id + 10}>
-              <img src={zombieFighter.img} alt={zombieFighter.name} />
+              <img src={`${fightersAssetsPath}/${zombieFighter.name}.png`} alt={zombieFighter.name} />
               <div className="cardContent">
-                <h3>{zombieFighter.name}</h3>
+                <span className="fighterName">{zombieFighter.name}</span>
 
                 <div className="abilities">
                   <div><span>Price: </span>{zombieFighter.price}</div>
                   <div><span>Strength: </span>{zombieFighter.strength}</div>
                   <div><span>Agility: </span>{zombieFighter.agility}</div>
                 </div>
-                <button className="remove" onClick={() => handleRemoveFighter(zombieFighter)}>Remove</button>
+                <button className="remove" onClick={() => handleRemoveFighter(zombieFighter, index)}>Remove</button>
 
               </div>
             </div>
@@ -169,14 +188,14 @@ function App() {
 
         : <p>Pick some team members</p>}
 
-      <h3>Fighters</h3>
+      <h1 className='section'>Fighters</h1>
       <div className='gridContainer'>
         {zombieFighters.map((zombieFighter, index) => (
 
           <div className="card" key={zombieFighter.id}>
-            <img src={zombieFighter.img} alt={zombieFighter.name} />
+            <img src={`${fightersAssetsPath}/${zombieFighter.name}.png`} alt={zombieFighter.name} />
             <div className="cardContent">
-              <h3>{zombieFighter.name}</h3>
+                <span className="fighterName">{zombieFighter.name}</span>
 
               <div className="abilities">
                 <div><span>Price: </span>{zombieFighter.price}</div>
